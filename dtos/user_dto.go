@@ -8,7 +8,14 @@ import "github.com/amanguptak/fiber-api/models"
 type User struct {
 	Id        string `json:"id"`
 	FirstName string `json:"firstName" validate:"required,min=2,max=32"`
-	LastName  string `json:"lastName" validate:"required,min=2,max=31"`
+	LastName  string `json:"lastName" validate:"required ,min=2,max=31"`
+	Email     string `json:"email" validate:"required,email"`
+}
+
+type UpdateUser struct {
+	FirstName *string `json:"firstName" validate:"omitempty,min=2,max=32"`
+	LastName  *string `json:"lastName" validate:"omitempty,min=2,max=31"`
+	Email     *string `json:"email" validate:"omitempty,email"`
 }
 
 // CreateResponseUser is a "Mapper" function.
@@ -20,5 +27,6 @@ func CreateResponseUser(user models.User) User {
 		Id:        user.ID.String(),
 		FirstName: user.FirstName,
 		LastName:  user.LastName,
+		Email:     user.Email,
 	}
 }
